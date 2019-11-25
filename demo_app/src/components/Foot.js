@@ -10,7 +10,7 @@ import {
   View,
 } from 'native-base';
 import FooterClick from './FooterClick';
-import {Alert} from 'react-native';
+import {Alert,ScrollView} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 class Foot extends React.Component {
   render() {
@@ -43,10 +43,12 @@ class Foot extends React.Component {
             ref={ref => {
               this.RBSheet = ref;
             }}
+            animationType="slide"
             height={10000}
             duration={250}>
-            
+              <ScrollView>
             <FooterClick />
+            </ScrollView>
           </RBSheet>
           <Icon active name="md-menu" />
         </Button>

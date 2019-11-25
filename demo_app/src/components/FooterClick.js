@@ -1,19 +1,23 @@
-import React from 'react'
-import {
-  Container,
-  Header,
-  Button,
-  Icon,
-  Text,
-  Left,
-  Right,
-  Content,
-} from 'native-base';
+import React from 'react';
+import {Container, Header, Button, Icon, Left, Right} from 'native-base';
+import {View, Text, FlatList, ScrollView} from 'react-native';
+import {Avatar} from 'react-native-elements';
+import {BL} from './BottomList';
 class FooterClick extends React.Component {
-    render()
-    {
+  renderSeparator = () => {
     return (
-        <Container style={styles.Container}>
+      <View
+        style={{
+          width: '100%',
+          backgroundColor: '#d2d2d2',
+          height: 0.5,
+        }}
+      />
+    );
+  };
+  render() {
+    return (
+      <Container style={styles.Container}>
         <Header>
           <Left>
             <Text style={styles.Logo}>Menu </Text>
@@ -26,55 +30,60 @@ class FooterClick extends React.Component {
               <Icon type="FontAwesome5" name="facebook-messenger" />
             </Button>
           </Right>
-        
         </Header>
-        <Content>
-
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasddasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-<Text>asdasdasdasdsa</Text>
-<Text>asdasdasdasdasdsa</Text>
-</Content>  
+        <ScrollView>
+          <View style={styles.container}>
+            <FlatList
+              data={BL}
+              ItemSeparatorComponent={this.renderSeparator}
+              keyExtractor={item => item.index}
+              renderItem={({item}) => (
+                <View style={styles.ItemContainer}>
+                  <Avatar
+                    rounded
+                    size="medium"
+                    source={{
+                      uri: item.avatar,
+                    }}
+                  />
+                  <View style={styles.PostText}>
+                    <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
+                    <Text style={styles.MiniText}>{item.message}</Text>
+                  </View>
+                </View>
+              )}
+              ItemSeparatorComponent={this.renderSeparator}
+            />
+          </View>
+        </ScrollView>
       </Container>
-    )
-}
+    );
+  }
 }
 const styles = {
-    Container: {
-      flex: 1,
-    },
-    GirdContainer: {
-      padding:5,
-      flex:1,
-      paddingLeft: 30,
-      justifyContent: 'center',
-    },
-    ColView: {
-      flexDirection: 'row',
-    },
-    Logo: {
-      fontSize: 24,
-      color: 'blue',
-      fontWeight: 'bold',
-      fontFamily: 'Time-new-roman',
-    },
-    Post: {
-      flexDirection: 'row',
-      padding: 10,
-    },
-    PostText: {
-      padding: 10,
-    },
-  };
-export default FooterClick
+  Container: {
+    flex: 1,
+  },
+  Logo: {
+    fontSize: 24,
+    color: 'blue',
+    fontWeight: 'bold',
+    fontFamily: 'Time-new-roman',
+  },
+  PostText: {
+    padding: 10,
+  },
+  ItemContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 10,
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#000',
+  },
+  item: {
+    alignItems: 'center',
+    fontSize: 15,
+  },
+};
+export default FooterClick;
